@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Default Title{% endblock title %}</title>
+</head>
+<body>
+  {% if art_menu_list %}
+  <ul>
+    {% for menu in art_menu_list %}
+    <li><a href="/artfilters/{{ menu.link }}/">{{ menu.text }}</a></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% block content %}Default content{% endblock content %}
+</block>
+</html>
