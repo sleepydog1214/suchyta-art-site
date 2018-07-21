@@ -4,13 +4,15 @@ from django.shortcuts import render
 
 from .models import ArtImage, ArtImageFilter, Page, PageText, PageTitle
 
+import random
+
 class Menu:
     def __init__(self, link, text):
         self.link = link
         self.text = text
 
 def get_menu_list():
-    all_pages = Page.objects.all();
+    all_pages = Page.objects.all()
 
     art_menu_list = list()
     for page in all_pages:
@@ -25,10 +27,14 @@ def index(request):
     home_title = PageTitle.objects.get(page = home_page)
     home_text = PageText.objects.get(page = home_page)
 
+    all_images = ArtImage.objects.all()
+    index = random.randint(0, len(all_images) - 1)
+
     context = {
         'art_menu_list': get_menu_list(),
         'index_title': home_title.text,
         'index_intro': home_text.text,
+        'index_image': all_images[index].file_name,
     }
 
     return render(request, 'artfilters/index.html', context)

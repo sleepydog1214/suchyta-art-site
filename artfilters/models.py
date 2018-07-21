@@ -10,7 +10,8 @@ IMAGE_TYPES = (
 
 class ArtImage(models.Model):
     file_name = models.CharField(max_length = 160)
-    path = models.FilePathField(path = '/documents_1TB_1/thomas/images/opt_svg')
+    path = models.FilePathField(path = '/documents_1TB_1/thomas/development/django/artsite/artfilters/static/artfilters/images', max_length = 255)
+    file_size = models.IntegerField(default = 0)
     type = models.CharField(max_length = 10, choices = IMAGE_TYPES)
     description = models.TextField()
     height = models.SmallIntegerField()
