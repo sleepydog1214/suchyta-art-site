@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.views import View
 
 from .models import ArtImage, ArtImageFilter, Page, PageText, PageTitle
 
@@ -22,97 +21,126 @@ def get_menu_list():
     return art_menu_list
 
 # Create your views here.
-def index(request):
-    home_page = Page.objects.get(name = "HOME")
-    home_title = PageTitle.objects.get(page = home_page)
-    home_text = PageText.objects.get(page = home_page)
 
-    all_images = ArtImage.objects.all()
-    index = random.randint(0, len(all_images) - 1)
+# The index views
+class IndexView(View):
+    template_name = 'artfilters/index.html'
 
-    context = {
-        'art_menu_list': get_menu_list(),
-        'index_title': home_title.text,
-        'index_intro': home_text.text,
-        'index_image': all_images[index].file_name,
-    }
+    def get(self, request):
+        home_page = Page.objects.get(name = "HOME")
+        home_title = PageTitle.objects.get(page = home_page)
+        home_text = PageText.objects.get(page = home_page)
 
-    return render(request, 'artfilters/index.html', context)
+        all_images = ArtImage.objects.all()
+        index = random.randint(0, len(all_images) - 1)
 
-def manifesto(request):
-    manifesto_page = Page.objects.get(name = "MANIFESTO")
-    manifesto_title = PageTitle.objects.get(page = manifesto_page)
-    manifesto_text = PageText.objects.get(page = manifesto_page)
+        context = {
+            'art_menu_list': get_menu_list(),
+            'index_title': home_title.text,
+            'index_intro': home_text.text,
+            'index_image': all_images[index].file_name,
+        }
 
-    context = {
-        'art_menu_list': get_menu_list(),
-        'manifesto_title': manifesto_title.text,
-        'manifesto_intro': manifesto_text.text,
-    }
+        return render(request, 'artfilters/index.html', context)
 
-    return render(request, 'artfilters/manifesto.html', context)
+# The manifesto view
+class ManifestoView(View):
+    template_name = 'artfilters/manifesto.html'
 
-def images(request):
-    images_page = Page.objects.get(name = "IMAGES")
-    images_title = PageTitle.objects.get(page = images_page)
-    images_text = PageText.objects.get(page = images_page)
+    def get(self, request):
+        manifesto_page = Page.objects.get(name = "MANIFESTO")
+        manifesto_title = PageTitle.objects.get(page = manifesto_page)
+        manifesto_text = PageText.objects.get(page = manifesto_page)
 
-    context = {
-        'art_menu_list': get_menu_list(),
-        'images_title': images_title.text,
-        'images_intro': images_text.text,
-    }
+        context = {
+            'art_menu_list': get_menu_list(),
+            'manifesto_title': manifesto_title.text,
+            'manifesto_intro': manifesto_text.text,
+        }
 
-    return render(request, 'artfilters/images.html', context)
+        return render(request, 'artfilters/manifesto.html', context)
 
-def print_links(request):
-    print_page = Page.objects.get(name = "PRINT")
-    print_title = PageTitle.objects.get(page = print_page)
-    print_text = PageText.objects.get(page = print_page)
+# The images view
+class ImagesView(View):
+    template_name = 'artfilters/images.html'
 
-    context = {
-        'art_menu_list': get_menu_list(),
-        'print_title': print_title.text,
-        'print_intro': print_text.text,
-    }
+    def get(self, request):
+        images_page = Page.objects.get(name = "IMAGES")
+        images_title = PageTitle.objects.get(page = images_page)
+        images_text = PageText.objects.get(page = images_page)
 
-    return render(request, 'artfilters/print.html', context)
+        context = {
+            'art_menu_list': get_menu_list(),
+            'images_title': images_title.text,
+            'images_intro': images_text.text,
+        }
 
-def bio(request):
-    bio_page = Page.objects.get(name = "BIO")
-    bio_title = PageTitle.objects.get(page = bio_page)
-    bio_text = PageText.objects.get(page = bio_page)
+        return render(request, 'artfilters/images.html', context)
 
-    context = {
-        'art_menu_list': get_menu_list(),
-        'bio_title': bio_title.text,
-        'bio_intro': bio_text.text,
-    }
+# The print view
+class PrintView(View):
+    template_name = 'artfilters/print.html'
 
-    return render(request, 'artfilters/bio.html', context)
+    def get(self, request):
+        print_page = Page.objects.get(name = "PRINT")
+        print_title = PageTitle.objects.get(page = print_page)
+        print_text = PageText.objects.get(page = print_page)
 
-def contact(request):
-    contact_page = Page.objects.get(name = "CONTACT")
-    contact_title = PageTitle.objects.get(page = contact_page)
-    contact_text = PageText.objects.get(page = contact_page)
+        context = {
+            'art_menu_list': get_menu_list(),
+            'print_title': print_title.text,
+            'print_intro': print_text.text,
+        }
 
-    context = {
-        'art_menu_list': get_menu_list(),
-        'contact_title': contact_title.text,
-        'contact_intro': contact_text.text,
-    }
+        return render(request, 'artfilters/print.html', context)
 
-    return render(request, 'artfilters/contact.html', context)
+# The bio view
+class BioView(View):
+    template_name = 'artfilters/bio.html'
 
-def blog(request):
-    blog_page = Page.objects.get(name = "BLOG")
-    blog_title = PageTitle.objects.get(page = blog_page)
-    blog_text = PageText.objects.get(page = blog_page)
+    def get(self, request):
+        bio_page = Page.objects.get(name = "BIO")
+        bio_title = PageTitle.objects.get(page = bio_page)
+        bio_text = PageText.objects.get(page = bio_page)
 
-    context = {
-        'art_menu_list': get_menu_list(),
-        'blog_title': blog_title.text,
-        'blog_intro': blog_text.text,
-    }
+        context = {
+            'art_menu_list': get_menu_list(),
+            'bio_title': bio_title.text,
+            'bio_intro': bio_text.text,
+        }
 
-    return render(request, 'artfilters/blog.html', context)
+        return render(request, 'artfilters/bio.html', context)
+
+# The contact view
+class ContactView(View):
+    template_name = 'artfilters/contact.html'
+
+    def get(self, request):
+        contact_page = Page.objects.get(name = "CONTACT")
+        contact_title = PageTitle.objects.get(page = contact_page)
+        contact_text = PageText.objects.get(page = contact_page)
+
+        context = {
+            'art_menu_list': get_menu_list(),
+            'contact_title': contact_title.text,
+            'contact_intro': contact_text.text,
+        }
+
+        return render(request, 'artfilters/contact.html', context)
+
+# The blog view
+class BlogView(View):
+    template_name = 'artfilters/blog.html'
+
+    def get(self, request):
+        blog_page = Page.objects.get(name = "BLOG")
+        blog_title = PageTitle.objects.get(page = blog_page)
+        blog_text = PageText.objects.get(page = blog_page)
+
+        context = {
+            'art_menu_list': get_menu_list(),
+            'blog_title': blog_title.text,
+            'blog_intro': blog_text.text,
+        }
+
+        return render(request, 'artfilters/blog.html', context)
