@@ -2,9 +2,50 @@
 {% load static %}
 {% block title %}{{ index_title }}{% endblock title %}
 {% block content %}
+<script src = "{% static 'artfilters/javascript/snap.svg.js' %}"></script>
 <h1>{{ index_title }}</h1>
 <p>{{ index_intro }}</p>
 <div id = "main_image">
-  <img src = "{% static 'artfilters/images/' %}{{ index_image }}" alt = "Index image">
+  <script>
+  var s = Snap(900, 900);
+  Snap.load("{% static 'artfilters/images/' %}{{ index_image }}", function(loadedFragment) {
+    // Load the svg file
+    s.append(loadedFragment);
+
+    // Get all paths in the svg
+    var paths = s.selectAll("path");
+
+    // Build a set of all colors in the svg
+    var strokeColors = new Set();
+    paths.forEach(function(path) {
+      var stroke = path.attr('stroke');
+      if (stroke !== null || stroke !== undefined) {
+        if (!strokeColors.has(stroke))
+          strokeColors.add(stroke);
+      }
+    });
+
+    // Draw new svg circles of each color
+    var numColorRows = strokeColors.size / 15;
+    if (strokeColors.size % 15 > 0)
+      numColorRows++;
+    var colorHeight = (numColorRows * 45) + 25;
+    var colorWidth = 700;
+    var colorsSvg = Snap(colorWidth, colorHeight);
+    var x = 35, y = 35, idx = 0;
+    for (stroke of strokeColors) {
+      if (idx != 0 && idx % 15 == 0) {
+        x = 35;
+        y += 45;
+      }
+      else if (idx != 0) {
+        x += 45;
+      }
+
+      c = colorsSvg.circle(x, y, 20).attr({ fill: stroke });
+      idx++;
+    }
+  });
+  </script
 </div>
 {% endblock content %}
