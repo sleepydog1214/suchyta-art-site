@@ -1,3 +1,4 @@
+""" The art site models """
 from django.db import models
 
 # Create your models here.
@@ -8,25 +9,31 @@ IMAGE_TYPES = (
     ('SVG', 'Scalable Vector Graphics')
 )
 
+
 class ArtImage(models.Model):
-    file_name = models.CharField(max_length = 160)
-    path = models.FilePathField(path = '/documents_1TB_1/thomas/development/django/artsite/artfilters/static/artfilters/images', max_length = 255)
-    file_size = models.IntegerField(default = 0)
-    type = models.CharField(max_length = 10, choices = IMAGE_TYPES)
+    """ The art image model """
+    imgPath = '/mnt/d/development/python3_env/suchyta-art-site/artfilters/static/artfilters/images'
+
+    file_name = models.CharField(max_length=160)
+    path = models.FilePathField(path=imgPath, max_length=255)
+    file_size = models.IntegerField(default=0)
+    type = models.CharField(max_length=10, choices=IMAGE_TYPES)
     description = models.TextField()
     height = models.SmallIntegerField()
     width = models.SmallIntegerField()
-    date_created = models.DateField(auto_now_add = True)
-    last_update = models.DateField(auto_now = True)
+    date_created = models.DateField(auto_now_add=True)
+    last_update = models.DateField(auto_now=True)
 
 class ArtImageFilter(models.Model):
-    name = models.CharField(max_length = 80)
-    type = models.CharField(max_length = 10, choices = IMAGE_TYPES)
+    """ The art image filter model """
+    name = models.CharField(max_length=80)
+    type = models.CharField(max_length=10, choices=IMAGE_TYPES)
     description = models.TextField()
-    date_created = models.DateField(auto_now_add = True)
-    last_update = models.DateField(auto_now = True)
+    date_created = models.DateField(auto_now_add=True)
+    last_update = models.DateField(auto_now=True)
 
 class Page(models.Model):
+    """ The art site page model """
     PAGE_NAMES = (
         ('HOME', 'Home'),
         ('MANIFESTO', 'Manifesto'),
@@ -36,20 +43,22 @@ class Page(models.Model):
         ('CONTACT', 'Contact'),
         ('BLOG', 'Blog')
     )
-    name = models.CharField(max_length = 25, choices = PAGE_NAMES)
-    date_created = models.DateField(auto_now_add = True)
-    last_update = models.DateField(auto_now = True)
+    name = models.CharField(max_length=25, choices=PAGE_NAMES)
+    date_created = models.DateField(auto_now_add=True)
+    last_update = models.DateField(auto_now=True)
 
 class PageText(models.Model):
-    name = models.CharField(max_length = 80)
+    """ The art site page text model """
+    name = models.CharField(max_length=80)
     text = models.TextField()
     page = models.ForeignKey(Page, on_delete = models.CASCADE)
-    date_created = models.DateField(auto_now_add = True)
-    last_update = models.DateField(auto_now = True)
+    date_created = models.DateField(auto_now_add=True)
+    last_update = models.DateField(auto_now=True)
 
 class PageTitle(models.Model):
-    name = models.CharField(max_length = 80)
+    """ The art site page title model """
+    name = models.CharField(max_length=80)
     text = models.TextField()
-    page = models.ForeignKey(Page, on_delete = models.CASCADE)
-    date_created = models.DateField(auto_now_add = True)
-    last_update = models.DateField(auto_now = True)
+    page = models.ForeignKey(Page, on_delete=models.CASCADE)
+    date_created = models.DateField(auto_now_add=True)
+    last_update = models.DateField(auto_now=True)

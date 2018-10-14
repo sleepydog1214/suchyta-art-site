@@ -1,8 +1,10 @@
+""" Art filters admin """
 from django.contrib import admin
 
 from .models import ArtImage, ArtImageFilter, Page, PageText, PageTitle
 
 class ArtImageAdmin(admin.ModelAdmin):
+    """ Art image admin class """
     fieldsets = [
         ('File information', {'fields': ['file_name', 'path', 'file_size', 'type']}),
         ('Image details', {'fields': ['description', 'height', 'width']}),
