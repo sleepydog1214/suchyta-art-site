@@ -24,6 +24,11 @@ class ArtImage(models.Model):
     date_created = models.DateField(auto_now_add=True)
     last_update = models.DateField(auto_now=True)
 
+    def __str__(self):
+        image = "path: " + self.path + ", "
+        image += "size: " + self.file_size
+        return image
+
 class ArtImageFilter(models.Model):
     """ The art image filter model """
     name = models.CharField(max_length=80)
@@ -31,6 +36,11 @@ class ArtImageFilter(models.Model):
     description = models.TextField()
     date_created = models.DateField(auto_now_add=True)
     last_update = models.DateField(auto_now=True)
+
+    def __str__(self):
+        art_filter = "name: " + self.name + ", "
+        art_filter += "type: " + self.type
+        return art_filter
 
 class Page(models.Model):
     """ The art site page model """
@@ -47,6 +57,9 @@ class Page(models.Model):
     date_created = models.DateField(auto_now_add=True)
     last_update = models.DateField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
 class PageText(models.Model):
     """ The art site page text model """
     name = models.CharField(max_length=80)
@@ -55,6 +68,9 @@ class PageText(models.Model):
     date_created = models.DateField(auto_now_add=True)
     last_update = models.DateField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
 class PageTitle(models.Model):
     """ The art site page title model """
     name = models.CharField(max_length=80)
@@ -62,3 +78,6 @@ class PageTitle(models.Model):
     page = models.ForeignKey(Page, on_delete=models.CASCADE)
     date_created = models.DateField(auto_now_add=True)
     last_update = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return self.name

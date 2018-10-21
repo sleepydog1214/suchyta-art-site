@@ -1,6 +1,6 @@
 """ The art site views """
 import random
-from django.shortcuts import render
+from django.shortcuts import get_list_or_404, get_object_or_404, render
 from django.views import View
 
 from .models import ArtImage, Page, PageText, PageTitle
@@ -30,11 +30,11 @@ class IndexView(View):
 
     def get(self, request):
         """ Get the data for the home page """
-        home_page = Page.objects.get(name = "HOME")
-        home_title = PageTitle.objects.get(page = home_page)
-        home_text = PageText.objects.get(page = home_page)
+        home_page = get_object_or_404(Page, name="HOME")
+        home_title = get_object_or_404(PageTitle, page=home_page)
+        home_text = get_object_or_404(PageText, page=home_page)
 
-        all_images = ArtImage.objects.all()
+        all_images = get_list_or_404(ArtImage)
         index = random.randint(0, len(all_images) - 1)
 
         context = {
@@ -52,9 +52,9 @@ class ManifestoView(View):
 
     def get(self, request):
         """ Get the data for the manifesto page """
-        manifesto_page = Page.objects.get(name = "MANIFESTO")
-        manifesto_title = PageTitle.objects.get(page = manifesto_page)
-        manifesto_text = PageText.objects.get(page = manifesto_page)
+        manifesto_page = get_object_or_404(Page, name="MANIFESTO")
+        manifesto_title = get_object_or_404(PageTitle, page=manifesto_page)
+        manifesto_text = get_object_or_404(PageText, page=manifesto_page)
 
         context = {
             'art_menu_list': get_menu_list(),
@@ -70,9 +70,9 @@ class ImagesView(View):
 
     def get(self, request):
         """ Get the data for the images page """
-        images_page = Page.objects.get(name = "IMAGES")
-        images_title = PageTitle.objects.get(page = images_page)
-        images_text = PageText.objects.get(page = images_page)
+        images_page = get_object_or_404(Page,name="IMAGES")
+        images_title = get_object_or_404(PageTitle,page=images_page)
+        images_text = get_object_or_404(PageText,page=images_page)
 
         context = {
             'art_menu_list': get_menu_list(),
@@ -88,9 +88,9 @@ class PrintView(View):
 
     def get(self, request):
         """ Get the data for the print page """
-        print_page = Page.objects.get(name = "PRINT")
-        print_title = PageTitle.objects.get(page = print_page)
-        print_text = PageText.objects.get(page = print_page)
+        print_page = get_object_or_404(Page,name="PRINT")
+        print_title = get_object_or_404(PageTitle,page=print_page)
+        print_text = get_object_or_404(PageText,page=print_page)
 
         context = {
             'art_menu_list': get_menu_list(),
@@ -106,9 +106,9 @@ class BioView(View):
 
     def get(self, request):
         """ Get the data for the bio page """
-        bio_page = Page.objects.get(name = "BIO")
-        bio_title = PageTitle.objects.get(page = bio_page)
-        bio_text = PageText.objects.get(page = bio_page)
+        bio_page = get_object_or_404(Page,name="BIO")
+        bio_title = get_object_or_404(PageTitle,page=bio_page)
+        bio_text = get_object_or_404(PageText,page=bio_page)
 
         context = {
             'art_menu_list': get_menu_list(),
@@ -124,9 +124,9 @@ class ContactView(View):
 
     def get(self, request):
         """ Get the data for the contact page """
-        contact_page = Page.objects.get(name = "CONTACT")
-        contact_title = PageTitle.objects.get(page = contact_page)
-        contact_text = PageText.objects.get(page = contact_page)
+        contact_page = get_object_or_404(Page,name="CONTACT")
+        contact_title = get_object_or_404(PageTitle,page=contact_page)
+        contact_text = get_object_or_404(PageText,page=contact_page)
 
         context = {
             'art_menu_list': get_menu_list(),
@@ -142,9 +142,9 @@ class BlogView(View):
 
     def get(self, request):
         """ Get the data for the blog page """
-        blog_page = Page.objects.get(name = "BLOG")
-        blog_title = PageTitle.objects.get(page = blog_page)
-        blog_text = PageText.objects.get(page = blog_page)
+        blog_page = get_object_or_404(Page,name="BLOG")
+        blog_title = get_object_or_404(PageTitle,page=blog_page)
+        blog_text = get_object_or_404(PageText,page=blog_page)
 
         context = {
             'art_menu_list': get_menu_list(),
