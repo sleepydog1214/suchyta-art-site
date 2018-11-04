@@ -4,6 +4,18 @@ class IndexImage {
         this.snapObj = Snap(900,900);
     }
 
+    circleClick() {
+        $('#paletteModal').modal('show');
+    }
+
+    circleHoverIn() {
+        this.attr({ stroke: '#000', strokeWidth: 3 });
+    }
+
+    circleHoverOut() {
+        this.attr({ stroke: '#fff', strokeWidth: 0 });
+    }
+
     buildColorDisplay() {
         // Load the svg file
         this.snapObj.append(this.imageFragment);
@@ -41,7 +53,10 @@ class IndexImage {
                 x += 45;
             }
 
-            var c = colorsSvg.circle(x, y, 20).attr({ fill: stroke });
+            var c = colorsSvg.circle(x, y, 20)
+                    .attr({ fill: stroke })
+                    .click(this.circleClick)
+                    .hover(this.circleHoverIn, this.circleHoverOut);
             idx++;
         }
     }

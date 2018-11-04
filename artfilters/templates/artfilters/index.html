@@ -4,8 +4,11 @@
 {% block content %}
 <script src = "{% static 'artfilters/javascript/snap.svg.js' %}"></script>
 <script src = "{% static 'artfilters/javascript/index.js' %}"></script>
+
 <h1>{{ index_title }}</h1>
+
 <p>{{ index_intro }}</p>
+
 <div id = "main_image">
   <script>
   Snap.load("{% static 'artfilters/images/' %}{{ index_image }}", function(loadedFragment) {
@@ -14,5 +17,25 @@
   });
   </script
 </div>
-{% endblock content %}
 
+<!-- Modal -->
+<div class="modal fade" id="paletteModal" tabindex="-1" role="dialog" aria-labelledby="paletteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="paletteModalLabel">Palette Colors</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Palette colors go here</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Apply Color</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
