@@ -61,3 +61,14 @@ class IndexImage {
         }
     }
 }
+
+class ColorPalette {
+    constructor() {
+        this.snapObj = Snap('#colorPalette');
+    }
+
+    buildPalette() {
+        this.snapObj.rect(2, 2, 25,25)
+        .attr({ fill: 'rgb(0,0,255)' });
+    }
+}

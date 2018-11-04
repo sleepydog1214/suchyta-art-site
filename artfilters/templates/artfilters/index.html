@@ -15,7 +15,7 @@
     let indexImage = new IndexImage(loadedFragment);
     indexImage.buildColorDisplay();
   });
-  </script
+  </script>
 </div>
 
 <!-- Modal -->
@@ -30,6 +30,12 @@
       </div>
       <div class="modal-body">
         <p>Palette colors go here</p>
+        <svg height="100" width="300" id="colorPalette">
+        </svg>
+        <script>
+          let colorPalette = new ColorPalette();
+          colorPalette.buildPalette();
+        </script>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary">Apply Color</button>
